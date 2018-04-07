@@ -33,9 +33,9 @@
 
   * `selector`
     * we can set how we want to access our element inside of our html. There are sever different ways to do this.
-      * `selector: 'app-root'` --> <app-root></app-root>
-      * `selector: '[app-root]'` --> <div app-root><div>
-      * `selector: '.app-root'` --> <div class="app-root"><div>
+      * `selector: 'app-root'` --> `<app-root></app-root>`
+      * `selector: '[app-root]'` --> `<div app-root><div>`
+      * `selector: '.app-root'` --> `<div class="app-root"><div>`
 
   We need to register the components in `app.modules.ts` so we can use them in our app. We register them in the `declarations` array and we also need to `import { Component_name } from 'path/to/component'`
 
