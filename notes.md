@@ -14,16 +14,16 @@
 * `export class name {}` we can set up paramaters here to be used in the HTML.
 
   ```javascript
-  import { Component } from '@angular/core';
+  import { Component } from "@angular/core";
 
   @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css']
+    selector: "app-root",
+    templateUrl: "./app.component.html",
+    styleUrls: ["./app.component.css"]
   })
   export class AppComponent {
-    title = 'Hello Ely!';
-    name = '';
+    title = "Hello Ely!";
+    name = "";
   }
   ```
 
@@ -38,6 +38,56 @@
       * `selector: '.app-root'` --> `<div class="app-root"><div>`
 
   We need to register the components in `app.modules.ts` so we can use them in our app. We register them in the `declarations` array and we also need to `import { Component_name } from 'path/to/component'`
+
+# Data Binding
+
+* Property Binding
+
+  * `[property] = "value"`
+
+    * we can use this for dynamic data, property is any html prop we can have on the element. The value comes from the class in `*.component.ts`
+
+    ```javascript
+      // servers.component.html
+      // allowNewServer is bound to the value in the class and is dynamic
+      <button class="btn btn-primary" [disabled]="!allowNewServer">Add Server<\/button>
+
+      // servers.component.ts
+      export class ServersComponent implements OnInit {
+        allowNewServer = false;
+        constructor() {
+          // changes the value after 2 secs
+          setTimeout(() => (this.allowNewServer = true), 2000);
+        }
+
+        ngOnInit() {}
+      }
+    ```
+
+* Event binding
+
+  * is used to wire up our events, like button clicks
+  * we use the `(event) = "method"` syntax to signify we are binding an event
+  * usually we use method to trigger an action on bound events
+
+    ```javascript
+      // server.components.html
+      <button class="btn btn-primary"(click)="onCreateServer()">Add Server<\/button>
+
+      //server.components.ts
+      export class ServersComponent implements OnInit {
+        // will chang the value once button is clicked
+        onCreateServer() {
+          this.serverCreationStatus = "Server was created!";
+        }
+      }
+    ```
+
+  * Passing data w/events
+    * we can use the event emitted to capture data.
+    * we access the event by binding an event `(click)="onClick()"` and passing in the event `(click)="onClick($event)`
+      * angular uses `$event` as the way to pass the event to the function
+      * access event value with `event.target.value` or using ts `(<HTMLInputElement>event.target).value`
 
 * To use Bootstrap
   * add `@import '~bootstrap/dist/css/bootstrap.css` to `styles.css` | [source](https://medium.com/codingthesmartway-com-blog/building-an-angular-5-project-with-bootstrap-4-and-firebase-4504ff7717c1)
