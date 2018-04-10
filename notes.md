@@ -97,6 +97,78 @@
       * don't forget to add it into `imports: [..., FormsModule]`
   * Two way data binding helps us use the input to update the output and vice-versa
 
+* Directives
+
+  * directives are instructions in the DOM
+  * still need to learn more about this
+  * directives that change the structure of the DOM need to be prefixed with `*`
+  * built-in directives
+
+    * `ngIf`
+      * need to be accessed with `*ngIf`
+      * `*ngIf="stuff-to-render"`
+      ```html
+          <p *ngIf="serverCreated">
+            Server was created, server name is {{serverName}}
+          </p>
+      ```
+    * `ngIf` with IF-ELSE
+      * we need to create the other template to render using `<ng-template #noServer></ng-template>` the `#` serves as a ref to the template
+      * then we modify the `*ngIf` to use our else `*ngIf="serverCreate; else noServer"`
+      ```html
+          <p *ngIf="serverCreated; else noServer">
+            Server was created, server name is {{serverName}}
+          </p>
+          <ng-template #noServer>
+              <p>No server was created</p>
+          </ng-template>
+      ```
+    * `ngStyle`
+
+      * used to dynamically style content
+      * we can call function withing ngStyle as it is part of angular
+      * configuration is an object
+
+      ```html
+        // regular styles
+         <p [ngStyle]="{cssProp: value}"></p>
+
+         // dynamic styles, getValue comes form the ts file
+         <p [ngStyle]="{cssProp: getValue()}"></p>
+      ```
+
+    * `ngClass`
+
+      * used so we can dynamically add classes
+      * similar syntax to `ngStyle`
+      * style classes need to be in the css/styles to function
+
+      ```html
+        // syntax, if expression returns true class name will be added
+        <p [ngClass]="{className: expression }"></p>
+
+        // will add class based on the serverStatus
+        <p [ngClass]="{online: serverStatus === 'online', offline: serverStatus === 'offline }"></p>
+      ```
+
+    * `ngFor`
+
+      * serves a for/for-of loop
+      * define as `let server of servers`
+      * `servers` come from our ts file
+
+      ```html
+        // will create as many components needed
+        // content inside app-server is still static
+        // still need to learn how to pass in data
+        <app-server *ngFor="let server of servers"></app-server>
+
+        // pass data and get index
+        // access data with iterpolation
+        <app-server *ngFor="let server of servers; let i = index">{{server}}</app-server>
+
+      ```
+
 * To use Bootstrap
   * add `@import '~bootstrap/dist/css/bootstrap.css` to `styles.css` | [source](https://medium.com/codingthesmartway-com-blog/building-an-angular-5-project-with-bootstrap-4-and-firebase-4504ff7717c1)
   * `npm i --save bootstrap@3` and add `""../node_modules/bootstrap/dist/css/bootstrap.min.css""` under `"styles"` in the `angualar-cli.json` file
