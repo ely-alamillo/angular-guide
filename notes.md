@@ -89,6 +89,14 @@
       * angular uses `$event` as the way to pass the event to the function
       * access event value with `event.target.value` or using ts `(<HTMLInputElement>event.target).value`
 
+* Two way data binding
+
+  * we acheive this with the magical `[(ngModule)]="property"` directive
+    * in `app.module.ts`
+      * we need to add `import { FormsModule } from '@angular/forms'`
+      * don't forget to add it into `imports: [..., FormsModule]`
+  * Two way data binding helps us use the input to update the output and vice-versa
+
 * To use Bootstrap
   * add `@import '~bootstrap/dist/css/bootstrap.css` to `styles.css` | [source](https://medium.com/codingthesmartway-com-blog/building-an-angular-5-project-with-bootstrap-4-and-firebase-4504ff7717c1)
   * `npm i --save bootstrap@3` and add `""../node_modules/bootstrap/dist/css/bootstrap.min.css""` under `"styles"` in the `angualar-cli.json` file
