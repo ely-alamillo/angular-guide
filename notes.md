@@ -92,7 +92,10 @@
 * Custom Event Binding
 
   * helps us pass data between components
-  * `@Input` passes data from parent to child
+  * `@Input`
+
+    * passes data from parent to child
+    * can take alias
 
     ```javascript
     // server-element.component.ts
@@ -123,6 +126,7 @@
 
     * passes data from child to parent
     * child component
+    * can take alias
 
       ```javascript
         // child.component.ts
