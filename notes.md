@@ -89,6 +89,94 @@
       * angular uses `$event` as the way to pass the event to the function
       * access event value with `event.target.value` or using ts `(<HTMLInputElement>event.target).value`
 
+* Custom Event Binding
+
+  * helps us pass data between components
+  * `@Input` passes data from parent to child
+
+    ```javascript
+    // server-element.component.ts
+    import { Input } from "@angular/core";
+
+    export class ServerElementComponents implements onInit {
+      // elements is the data we are getting and the structure of data
+      @input() element: { type: string, name: string, content: string };
+    }
+    ```
+
+    ```html
+      <!-- on the parent components -->
+      <!-- 'element' is what we want to pass into the child -->
+      <!-- 'serverElement' is the data in the parent ts file -->
+      <app-server-element [element]="serverElements">
+      </app-server-element>
+    ```
+
+    ```javascript
+    // parent.components.ts
+    serverElements = [
+      { type: "server", name: "test server", content: "just a test server" }
+    ];
+    ```
+
+  * `@Output`
+
+    * passes data from child to parent
+    * child component
+
+      ```javascript
+        // child.component.ts
+        import { Output, EventEmitter } from '@angular/core';
+
+        export class ChildComponent {
+          // Output singnifies we will pass out data
+          // EventEmitter lets us emit custom events
+          // we must pass the event structure
+          @Output() serverCreated = new EventEmitter<{name: string, content: string}>
+
+          newName = ''
+          newContent = ''
+
+          onAddServer() {
+            // we call out custom event and emit our event data
+            this.serverCreated().emit({
+              name: this.newName,
+              content: this.newContent
+            })
+          }
+        }
+      ```
+
+      ```html
+         <!-- child.component.html -->
+         <input type='text' [(ngModel)]='newName'>
+         <button (click)='onAddServer'>
+           Add Name
+         </button>
+      ```
+
+    * parent component
+
+      ```html
+          <!-- parent.component.html -->
+          we listen for the event 'serverCreated' that gets emitted by the child. We then execute a function `onServerAdded` that catches the event
+          <app-child (serverCreated)="onServerAdded($event)">
+
+          </app-child>
+      ```
+
+      ```javascript
+      // parent.component.ts
+      import {} from "@angualr/core";
+
+      export class Parent {
+        // function with defined structure
+        onServerAdded(serverData: { name: string, content: string }) {
+          //do stuff that changes the parent
+        }
+      }
+      ```
+
 * Two way data binding
 
   * we acheive this with the magical `[(ngModule)]="property"` directive
@@ -166,7 +254,6 @@
         // pass data and get index
         // access data with iterpolation
         <app-server *ngFor="let server of servers; let i = index">{{server}}</app-server>
-
       ```
 
 * To use Bootstrap
