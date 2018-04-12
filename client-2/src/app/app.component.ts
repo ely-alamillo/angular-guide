@@ -28,4 +28,8 @@ export class AppComponent {
       content: blueprintData.serverContent
     });
   }
+
+  onDestroy() {
+    this.serverElements.splice(0, 1);
+  }
 }
