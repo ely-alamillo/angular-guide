@@ -189,6 +189,33 @@
       * don't forget to add it into `imports: [..., FormsModule]`
   * Two way data binding helps us use the input to update the output and vice-versa
 
+* Getting data with references
+  * Local Ref
+    * we can add local ref to avoid usig two-way data binding
+    ```html
+      <!-- # is the ref -->
+      <input #serverContentInput >
+      <!-- we can just pass the ref to the function -->
+      <!-- ref is an element so we need to pull out the value -->
+      <button (click)="onAddServer(serverContentInput)">Add Server</button>
+    ```
+  * `@ViewChild()`
+    * we can also get data with `@ViewChild`
+    ```javascript
+      // components.ts
+      export class Server {
+        // pass in the ref
+        @ViewChild("serverContentInput") serverContentInput: ElementRef;
+
+        onAddServer() {
+          this.create.emit({
+            // this is how we pull data from the ref using ViewChild
+            content: this.serverContentInput.nativeElement.value
+          })
+        }
+      }
+    ```
+
 * Directives
 
   * directives are instructions in the DOM
@@ -259,6 +286,27 @@
         // access data with iterpolation
         <app-server *ngFor="let server of servers; let i = index">{{server}}</app-server>
       ```
+# Lifecycle Hooks
+  * ngOnChanges
+    * called after a bound input prop changes
+  * ngOnInit
+    * called once the component is initialized
+    * runs after the constructor
+  * ngDoCheck
+    * called during every change detection run
+    * runs on every check that angualar makes, even if no change happens
+  * ngAfterContentInit
+    * callded after content (ng-content) has been projected into view
+  * ngAfterContentChecked
+    * called every time the projected content has been checked
+  * ngAfterViewInit
+    * called after the component's view (and child views) has been intialized
+  * ngAfterViewChecked
+    * called everytimethe view (and child views) have been checked
+  * ngOnDestroy
+   * called once the components is ready to be destroyed
+   * great for cleaning up
+
 
 * To use Bootstrap
   * add `@import '~bootstrap/dist/css/bootstrap.css` to `styles.css` | [source](https://medium.com/codingthesmartway-com-blog/building-an-angular-5-project-with-bootstrap-4-and-firebase-4504ff7717c1)
