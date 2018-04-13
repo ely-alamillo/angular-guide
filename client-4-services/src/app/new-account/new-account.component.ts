@@ -13,7 +13,11 @@ export class NewAccountComponent {
   constructor(
     private loggingService: LogginService,
     private accountService: AccountsService
-  ) {}
+  ) {
+    this.accountService.statusUpdatedEvent.subscribe((status: string) =>
+      alert("New Status: " + status)
+    );
+  }
 
   onCreateAccount(accountName: string, accountStatus: string) {
     // replace with service
