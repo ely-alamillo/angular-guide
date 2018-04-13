@@ -290,21 +290,40 @@
   * we can make our own custon directives to use
   * we need to import it under `declarations` in `app.module.ts`
   * we can use it ```html <div appBasicHighlight>```
-  ```javascript
-     // basic-higlight.directive.ts
-     import { Directive, ElementRef, OnInit } from "@angular/core";
+  * Basic Directive, not so good to use
+  * use `hostBinding` and `hostListener`
+    ```javascript
+      // basic-higlight.directive.ts
+      import { Directive, ElementRef, OnInit } from "@angular/core";
 
-    @Directive({
-      selector: "[appBasicHighlight]"
-    })
-    export class BasicHighlightDirective implements OnInit {
-      constructor(private elementRef: ElementRef) {}
+      @Directive({
+        selector: "[appBasicHighlight]"
+      })
+      export class BasicHighlightDirective implements OnInit {
+        constructor(private elementRef: ElementRef) {}
 
-      ngOnInit() {
-        this.elementRef.nativeElement.style.backgroundColor = "green";
+        ngOnInit() {
+          this.elementRef.nativeElement.style.backgroundColor = "green";
+        }
       }
-    }
-  ```
+    ```
+  * Better Directive
+    * better because of dom manipulation, uses Renderer2
+    ```javascript
+      // better-higlight.directive.ts
+      import { Directive, Renderer2, ElementRef, OnInit } from "@angular/core";
+
+      @Directive({
+        selector: "[appBasicHighlight]"
+      })
+      export class BasicHighlightDirective implements OnInit {
+        constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
+
+        ngOnInit() {
+         this.renderer.setStyle(this.elRef.nativeElement, 'backgroundColor', 'blue')
+        }
+      }
+    ```
 # Lifecycle Hooks
   * ngOnChanges
     * called after a bound input prop changes
