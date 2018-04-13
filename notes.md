@@ -286,6 +286,25 @@
         // access data with iterpolation
         <app-server *ngFor="let server of servers; let i = index">{{server}}</app-server>
       ```
+# Custom Directives
+  * we can make our own custon directives to use
+  * we need to import it under `declarations` in `app.module.ts`
+  * we can use it ```html <div appBasicHighlight>```
+  ```javascript
+     // basic-higlight.directive.ts
+     import { Directive, ElementRef, OnInit } from "@angular/core";
+
+    @Directive({
+      selector: "[appBasicHighlight]"
+    })
+    export class BasicHighlightDirective implements OnInit {
+      constructor(private elementRef: ElementRef) {}
+
+      ngOnInit() {
+        this.elementRef.nativeElement.style.backgroundColor = "green";
+      }
+    }
+  ```
 # Lifecycle Hooks
   * ngOnChanges
     * called after a bound input prop changes
