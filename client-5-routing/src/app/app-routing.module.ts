@@ -52,7 +52,10 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
+  // hashRouter boys!
+  // imports: [RouterModule.forRoot(appRoutes, { useHash: true })],
   imports: [RouterModule.forRoot(appRoutes)],
+
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
