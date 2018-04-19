@@ -17,9 +17,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor() {}
 
   ngOnInit() {
-    const myNumbers = Observable.interval(1000).map((data: number) => {
-      return data * 2;
-    });
+    const myNumbers = Observable.interval(1000).map((data: number) => data * 2);
     this.numbersSub = myNumbers.subscribe((number: number) => {
       console.log(number);
     });
