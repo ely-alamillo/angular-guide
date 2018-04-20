@@ -14,6 +14,15 @@ export class AppComponent {
 
   suggestUserName() {
     const suggestedName = "Superuser";
+
+    // viewchild approach to set up form name
+    // this.signupform.setValue({
+    //   userData: { username: suggestedName, email: "" },
+    //   secret: "pet",
+    //   questionAnswer: "",
+    //   gender: "male"
+    // });
+    this.signupform.form.patchValue({ userData: { username: suggestedName } });
   }
 
   // onSubmit(form: NgForm) {
