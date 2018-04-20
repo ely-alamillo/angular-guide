@@ -10,7 +10,15 @@ export class AppComponent {
   @ViewChild("f") signupform: NgForm;
   defaultQuestion = "pet";
   answer: string;
+  submited = false;
   genders = ["male", "female"];
+  user = {
+    username: "",
+    email: "",
+    secret: "",
+    answer: "",
+    gender: ""
+  };
 
   suggestUserName() {
     const suggestedName = "Superuser";
@@ -30,6 +38,11 @@ export class AppComponent {
   // }
 
   onSubmit() {
-    console.log(this.signupform);
+    this.user.username = this.signupform.value.userData.username;
+    this.user.email = this.signupform.value.userData.email;
+    this.user.secret = this.signupform.value.secret;
+    this.user.answer = this.signupform.value.questionAnswer;
+    this.user.gender = this.signupform.value.gender;
+    this.submited = true;
   }
 }
