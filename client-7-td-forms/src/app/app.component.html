@@ -3,7 +3,9 @@
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
       <form (ngSubmit)="onSubmit(f)"
         #f="ngForm">
-        <div id="user-data">
+        <div id="user-data"
+          ngModelGroup="userData"
+          #userData="ngModelGroup">
           <div class="form-group">
             <label for="username">Username</label>
             <input type="text"
@@ -29,6 +31,7 @@
               *ngIf="!email.valid && email.touched">Please enter a valid email.</span>
           </div>
         </div>
+        <p *ngIf="!userData.valid && userData.touched">User Data is invalid!</p>
         <div class="form-group">
           <label for="secret">Secret Questions</label>
           <select id="secret"
@@ -46,6 +49,16 @@
             [(ngModel)]="answer"></textarea>
         </div>
         <p>Your reply: {{answer}}</p>
+        <div class="class"
+          *ngFor="let gender of genders">
+          <label>
+            <input type="radio"
+              name="gender"
+              ngModel
+              [value]="gender"
+              required> {{gender}}
+          </label>
+        </div>
         <button [disabled]="!f.valid
             "
           class="btn
